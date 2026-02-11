@@ -1,0 +1,127 @@
+/* ===== CONTACT SECTION ===== */
+
+.contact {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--primary-extra-light) 100%);
+}
+
+.contact__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Contact Cards */
+.contact__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.contact__card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.contact__card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-light);
+}
+
+.contact__card i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.contact__card h3 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.contact__card p {
+    font-size: 0.875rem;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.contact__card a {
+    color: var(--primary);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+}
+
+.contact__card a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Map */
+.contact__map {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    height: 100%;
+    min-height: 350px;
+}
+
+.contact__map-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    background: linear-gradient(135deg, var(--primary-extra-light), var(--primary-light));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border-radius: var(--radius-md);
+}
+
+.contact__map-placeholder i {
+    font-size: 3rem;
+    color: var(--primary);
+    opacity: 0.4;
+}
+
+.contact__map-placeholder p {
+    font-size: 0.9375rem;
+    color: var(--primary);
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 768px) {
+    .contact__content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact__info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact__map {
+        min-height: 300px;
+    }
+
+    .contact__map-placeholder {
+        min-height: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact__info {
+        grid-template-columns: 1fr;
+    }
+}

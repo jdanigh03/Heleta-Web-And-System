@@ -1,0 +1,134 @@
+/* ===== FOOTER ===== */
+
+.footer {
+    background: var(--dark);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 4rem 0 0;
+}
+
+.footer__content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+}
+
+/* Brand */
+.footer__brand {
+    max-width: 280px;
+}
+
+.footer__logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: var(--radius-full);
+    margin-bottom: 1rem;
+    background: var(--primary);
+    padding: 4px;
+}
+
+.footer__description {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Titles */
+.footer__title {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.footer__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+/* Links & Lists */
+.footer__list li {
+    font-size: 0.875rem;
+    margin-bottom: 0.625rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer__link {
+    color: rgba(255, 255, 255, 0.6);
+    transition: all var(--transition-fast);
+}
+
+.footer__link:hover {
+    color: var(--primary-light);
+    padding-left: 5px;
+}
+
+/* Social Links */
+.footer__social-links {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-full);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.footer__social-link:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(212, 43, 90, 0.4);
+}
+
+/* Bottom */
+.footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.25rem 0;
+    text-align: center;
+}
+
+.footer__bottom p {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 768px) {
+    .footer__content {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer__brand {
+        grid-column: span 2;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer__content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer__brand {
+        grid-column: span 1;
+    }
+}
