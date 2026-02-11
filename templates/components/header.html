@@ -1,0 +1,47 @@
+<header class="header" id="header">
+    <nav class="nav container">
+        <a href="/" class="nav__logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Heleta Logo" class="nav__logo-img">
+        </a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+                <li class="nav__item">
+                    <a href="/" class="nav__link">Inicio</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/catalogo" class="nav__link">Galletas</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/packs" class="nav__link">Packs</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/club" class="nav__link">Club</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/blog" class="nav__link">Blog</a>
+                </li>
+                <li class="nav__item">
+                    <a href="/sucursales" class="nav__link">Sucursales</a>
+                </li>
+            </ul>
+
+            <button class="nav__close" id="nav-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="nav__actions">
+            <a href="/carrito" class="nav__cart" id="nav-cart">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="nav__cart-badge" id="cart-badge">0</span>
+            </a>
+            <a href="#" class="nav__account">
+                <i class="fa-solid fa-user"></i>
+            </a>
+            <button class="nav__toggle" id="nav-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+</header>

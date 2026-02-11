@@ -1,0 +1,124 @@
+/* ===== ABOUT SECTION ===== */
+
+.about {
+    background: var(--white);
+}
+
+.about__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+}
+
+/* Image */
+.about__img-wrapper {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.about__img-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--primary-light);
+    border-radius: var(--radius-lg);
+    z-index: 0;
+}
+
+.about__img-placeholder {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(135deg, var(--primary-extra-light), var(--primary-light));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.about__img-placeholder i {
+    font-size: 5rem;
+    color: var(--primary);
+    opacity: 0.5;
+}
+
+/* Info */
+.about__description {
+    font-size: 1rem;
+    color: var(--dark-light);
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+}
+
+.about__description strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Stats */
+.about__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--primary-extra-light);
+}
+
+.about__stat {
+    text-align: center;
+}
+
+.about__stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.about__stat-label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--gray);
+    margin-top: 0.25rem;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 768px) {
+    .about__content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .about__img-placeholder {
+        height: 300px;
+    }
+
+    .about__img-wrapper::before {
+        top: -10px;
+        left: -10px;
+    }
+
+    .about__stats {
+        gap: 1rem;
+    }
+
+    .about__stat-number {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about__stats {
+        grid-template-columns: 1fr;
+    }
+}

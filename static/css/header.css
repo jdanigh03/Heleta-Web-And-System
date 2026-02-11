@@ -1,0 +1,129 @@
+/* ===== HEADER / NAVBAR ===== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(255, 245, 247, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all var(--transition-normal);
+}
+
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+}
+
+.nav__logo {
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.nav__logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-fast);
+}
+
+.nav__logo-img:hover {
+    transform: scale(1.05);
+}
+
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.nav__link {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--dark-light);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.nav__link:hover,
+.nav__link.active {
+    color: var(--primary);
+    background: var(--primary-extra-light);
+}
+
+.nav__link.active {
+    font-weight: 600;
+}
+
+/* Mobile Menu */
+.nav__toggle,
+.nav__close {
+    display: none;
+    font-size: 1.25rem;
+    color: var(--dark);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.nav__toggle:hover,
+.nav__close:hover {
+    color: var(--primary);
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 768px) {
+    .nav__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        height: 100vh;
+        background: var(--white);
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+        padding: 5rem 2rem 2rem;
+        transition: right var(--transition-normal);
+        z-index: 100;
+    }
+
+    .nav__menu.show {
+        right: 0;
+    }
+
+    .nav__list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .nav__link {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .nav__toggle {
+        display: block;
+    }
+
+    .nav__close {
+        display: block;
+        position: absolute;
+        top: 1.25rem;
+        right: 1.5rem;
+        font-size: 1.5rem;
+    }
+}
