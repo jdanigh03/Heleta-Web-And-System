@@ -1,0 +1,359 @@
+/* ===== HOME PAGE REFINED STYLES ===== */
+
+.editions-preview {
+    background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+    padding: 4rem 0;
+    /* Reduced from 8rem */
+}
+
+.editions-preview__container {
+    max-width: 1000px;
+    /* Reduced from 1200px */
+}
+
+.section__desc {
+    max-width: 600px;
+    margin: 1rem auto 3rem;
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+.editions-preview__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    /* Reduced from 2rem */
+}
+
+.editions-preview__card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--primary-extra-light);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Featured styles removed */
+
+.editions-preview__card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.editions-preview__img {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+    /* Reduced from 250px */
+}
+
+.editions-preview__card .editions-preview__img {
+    flex: 1;
+}
+
+.editions-preview__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.editions-preview__card:hover .editions-preview__img img {
+    transform: scale(1.05);
+}
+
+.editions-preview__badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: var(--primary);
+    color: var(--white);
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-xl);
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(212, 43, 90, 0.3);
+}
+
+.editions-preview__content {
+    flex: 1;
+    padding: 1.5rem;
+    /* Reduced from 2.5rem */
+    display: flex;
+    flex-direction: column;
+}
+
+.editions-preview__card .editions-preview__content {
+    padding: 1.5rem;
+    /* Reduced from 2.5rem */
+    display: flex;
+    flex-direction: column;
+}
+
+.editions-preview__timer-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: var(--primary-extra-light);
+    color: var(--primary);
+    width: fit-content;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    /* Reduced from 0.9rem */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    /* Reduced from 2rem */
+}
+
+.editions-preview__name {
+    font-size: 1.25rem;
+    /* Reduced from 1.75rem */
+    margin-bottom: 0.5rem;
+    color: var(--dark);
+}
+
+.editions-preview__card .editions-preview__name {
+    font-size: 1.25rem;
+}
+
+.editions-preview__text {
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    /* Reduced from 2.5rem */
+    font-size: 0.875rem;
+}
+
+.editions-preview__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.editions-preview__price {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    /* Reduced from 2rem */
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Response */
+@media screen and (max-width: 992px) {
+    .editions-preview__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Offers & Other styles from before included for completeness */
+/* (omitted unchanged parts for brevity if already in home.css, but I'll write the full file here) */
+/* ... (offers, testimonials, cta as defined in previous home.css) ... */
+/* Offers Section */
+.offers {
+    background-color: var(--cream);
+    padding: 5rem 0;
+}
+
+.offers__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.offers__deal {
+    background: var(--primary);
+    /* Changed to banner style */
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid transparent;
+    color: var(--white);
+    /* White text for banners */
+}
+
+.offers__deal--accent {
+    background: var(--dark);
+    color: var(--white);
+}
+
+.offers__deal .offers__deal-badge {
+    background: var(--white);
+    color: var(--primary);
+}
+
+.offers__deal .offers__deal-title,
+.offers__deal .offers__deal-desc,
+.offers__deal .offers__deal-new {
+    color: var(--white);
+}
+
+.offers__deal-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.75rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.offers__deal-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.offers__deal-desc {
+    color: var(--gray);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.offers__deal-price {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.offers__deal-old {
+    text-decoration: line-through;
+    color: var(--gray-light);
+    font-size: 1.25rem;
+}
+
+.offers__deal-new {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--font-heading);
+}
+
+.offers__deal--accent .offers__deal-new {
+    color: var(--white);
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 6rem 0;
+}
+
+.testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+}
+
+.testimonials__card {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonials__stars {
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+}
+
+.testimonials__text {
+    font-style: italic;
+    color: var(--dark-light);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.testimonials__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.testimonials__avatar {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-extra-light);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.testimonials__author strong {
+    display: block;
+    color: var(--dark);
+}
+
+.testimonials__author span {
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+/* CTA Section */
+.cta {
+    padding: 8rem 0;
+    background: linear-gradient(rgba(45, 31, 45, 0.8), rgba(45, 31, 45, 0.8)), url('/static/img/cookie_hero.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--white);
+}
+
+.cta__content {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.cta__title {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta__title span {
+    color: var(--primary-light);
+}
+
+.cta__description {
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.cta__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .offers__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta__title {
+        font-size: 2.5rem;
+    }
+
+    .cta__buttons {
+        flex-direction: column;
+    }
+}

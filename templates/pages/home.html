@@ -2,6 +2,7 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
         <!-- Slide 1 -->
         <div class="hero__slide active" data-slide="0">
             <div class="hero__slide-bg"
-                style="background-image: url('{{ url_for('static', filename='img/cookie_chocolate.png') }}')"></div>
+                style="background-image: url('{{ url_for('static', filename='img/cookie_chocolate.png') }}');"></div>
             <div class="hero__slide-content container">
                 <span class="hero__badge">⭐ Más Vendida</span>
                 <h1 class="hero__title">Chocolate Chip<br><span class="hero__title-accent">Clásica</span></h1>
@@ -23,7 +24,7 @@
         <!-- Slide 2 -->
         <div class="hero__slide" data-slide="1">
             <div class="hero__slide-bg"
-                style="background-image: url('{{ url_for('static', filename='img/cookie_chai.png') }}')"></div>
+                style="background-image: url('{{ url_for('static', filename='img/cookie_chai.png') }}');"></div>
             <div class="hero__slide-content container">
                 <span class="hero__badge">🔥 Edición Especial</span>
                 <h1 class="hero__title">Chai<br><span class="hero__title-accent">Especial</span></h1>
@@ -35,7 +36,7 @@
         <!-- Slide 3 -->
         <div class="hero__slide" data-slide="2">
             <div class="hero__slide-bg"
-                style="background-image: url('{{ url_for('static', filename='img/cookie_hero.png') }}')"></div>
+                style="background-image: url('{{ url_for('static', filename='img/cookie_hero.png') }}');"></div>
             <div class="hero__slide-content container">
                 <span class="hero__badge">🍪 Nuevos Sabores</span>
                 <h1 class="hero__title">Galletas<br><span class="hero__title-accent">Artesanales</span></h1>
@@ -57,51 +58,72 @@
     </div>
 </section>
 
-<!-- ===== LIMITED EDITIONS CAROUSEL ===== -->
+<!-- ===== LIMITED EDITIONS SECTION ===== -->
 <section class="editions-preview section">
     <div class="editions-preview__container container">
-        <div class="section__header">
-            <span class="section__subtitle">🔥 No te las pierdas</span>
+        <div class="section__header text-center">
+            <span class="section__subtitle">✨ Colección Exclusiva</span>
             <h2 class="section__title">Ediciones Limitadas</h2>
+            <p class="section__desc">Sabores únicos que solo estarán disponibles por pocos días. ¡Nadie se queda sin la
+                suya!</p>
         </div>
-        <div class="editions-preview__grid">
-            <div class="editions-preview__card">
-                <div class="editions-preview__img">
-                    <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Chai Especial">
-                    <span class="editions-preview__timer">⏰ 48hrs restantes</span>
+
+        <!-- Edition 1 -->
+        <div class="editions-preview__card">
+            <div class="editions-preview__img">
+                <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Heleta Chai Gold">
+                <div class="editions-preview__badge">✨ Nuevo</div>
+            </div>
+            <div class="editions-preview__content">
+                <div class="editions-preview__timer-bar">
+                    <i class="fa-solid fa-clock"></i> <span id="timer-1">48:00:00</span>
                 </div>
-                <div class="editions-preview__info">
-                    <h3>Chai Especial</h3>
-                    <p>Canela, cardamomo y jengibre en cada bocado</p>
+                <h3 class="editions-preview__name">Heleta Chai Gold</h3>
+                <p class="editions-preview__text">Una infusión de especias orientales envuelta en masa mantequillosa
+                    y un toque de azúcar morena.</p>
+                <div class="editions-preview__footer">
                     <span class="editions-preview__price">Bs 18</span>
+                    <a href="/ediciones" class="btn btn--primary">Reservar Ahora</a>
                 </div>
-                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
-            </div>
-            <div class="editions-preview__card">
-                <div class="editions-preview__img">
-                    <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack Especial">
-                    <span class="editions-preview__timer">⏰ 72hrs restantes</span>
-                </div>
-                <div class="editions-preview__info">
-                    <h3>Pack San Valentín</h3>
-                    <p>6 galletas surtidas con caja decorada</p>
-                    <span class="editions-preview__price">Bs 85</span>
-                </div>
-                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
-            </div>
-            <div class="editions-preview__card">
-                <div class="editions-preview__img">
-                    <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}" alt="Triple Chocolate">
-                    <span class="editions-preview__timer">⏰ 24hrs restantes</span>
-                </div>
-                <div class="editions-preview__info">
-                    <h3>Triple Chocolate</h3>
-                    <p>Chocolate negro, con leche y blanco fusionados</p>
-                    <span class="editions-preview__price">Bs 22</span>
-                </div>
-                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
             </div>
         </div>
+
+        <!-- Standard Limited 1 -->
+        <div class="editions-preview__card">
+            <div class="editions-preview__img">
+                <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack San Valentín">
+            </div>
+            <div class="editions-preview__content">
+                <div class="editions-preview__timer-bar">
+                    <i class="fa-solid fa-clock"></i> <span id="timer-2">72:00:00</span>
+                </div>
+                <h3 class="editions-preview__name">Pack San Valentín</h3>
+                <p class="editions-preview__text">La caja perfecta para compartir amor.</p>
+                <div class="editions-preview__footer">
+                    <span class="editions-preview__price">Bs 85</span>
+                    <a href="/ediciones" class="btn btn--outline btn--sm">Ver Pack</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Standard Limited 2 -->
+        <div class="editions-preview__card">
+            <div class="editions-preview__img">
+                <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}" alt="Triple Chocolate Overload">
+            </div>
+            <div class="editions-preview__content">
+                <div class="editions-preview__timer-bar">
+                    <i class="fa-solid fa-clock"></i> <span id="timer-3">24:00:00</span>
+                </div>
+                <h3 class="editions-preview__name">Triple Chocolate Overload</h3>
+                <p class="editions-preview__text">Explosión de cacao en tres texturas.</p>
+                <div class="editions-preview__footer">
+                    <span class="editions-preview__price">Bs 22</span>
+                    <a href="/ediciones" class="btn btn--outline btn--sm">Ver Más</a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </section>
 
