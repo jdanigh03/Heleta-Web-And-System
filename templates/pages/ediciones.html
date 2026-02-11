@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Ediciones Limitadas - Heleta{% endblock %}
+{% block content %}
+<section class="section container mt-2">
+    <div class="section__header">
+        <span class="section__subtitle">⏳ Por tiempo limitado</span>
+        <h2 class="section__title">Ediciones Especiales</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="catalogo__card">
+            <div class="catalogo__card-img">
+                <img src="/static/img/cookie_chai.png">
+                <span class="catalogo__card-badge" style="background:var(--gold);">Countdown: 47:59:59</span>
+            </div>
+            <div class="catalogo__card-info">
+                <h3>Heleta de API 72hrs</h3>
+                <p>Una galleta técnica con chips de bytes y sabor a éxito.</p>
+                <div class="catalogo__card-bottom">
+                    <span class="catalogo__card-price">Bs 25</span>
+                    <button class="btn btn--primary"
+                        onclick="HelCart.add({id:201, name:'Heleta de API', price:25, img:'/static/img/cookie_chai.png'})">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

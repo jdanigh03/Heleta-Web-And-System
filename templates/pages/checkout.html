@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Heleta{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="checkout">
+    <div class="checkout__container container">
+        <h1 class="checkout__title">Finalizar Pedido</h1>
+
+        <!-- Progress Steps -->
+        <div class="checkout__steps">
+            <div class="checkout__step active" data-step="1">
+                <span class="checkout__step-num">1</span>
+                <span class="checkout__step-label">Datos</span>
+            </div>
+            <div class="checkout__step-line"></div>
+            <div class="checkout__step" data-step="2">
+                <span class="checkout__step-num">2</span>
+                <span class="checkout__step-label">Pago</span>
+            </div>
+            <div class="checkout__step-line"></div>
+            <div class="checkout__step" data-step="3">
+                <span class="checkout__step-num">3</span>
+                <span class="checkout__step-label">Confirmación</span>
+            </div>
+        </div>
+
+        <div class="checkout__content">
+            <!-- Step 1: Info -->
+            <div class="checkout__form-section active" id="step-1">
+                <h2>Datos de Envío</h2>
+                <form class="checkout__form" id="checkout-form">
+                    <div class="checkout__form-row">
+                        <div class="checkout__form-group">
+                            <label>Nombre completo</label>
+                            <input type="text" required placeholder="Tu nombre">
+                        </div>
+                        <div class="checkout__form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" required placeholder="+591 7XXXXXXX">
+                        </div>
+                    </div>
+                    <div class="checkout__form-group">
+                        <label>Dirección de entrega</label>
+                        <input type="text" required placeholder="Calle, número, zona">
+                    </div>
+                    <div class="checkout__form-row">
+                        <div class="checkout__form-group">
+                            <label>Ciudad</label>
+                            <select required>
+                                <option value="">Selecciona...</option>
+                                <option>La Paz</option>
+                                <option>El Alto</option>
+                                <option>Cochabamba</option>
+                                <option>Oruro</option>
+                                <option>Sucre</option>
+                            </select>
+                        </div>
+                        <div class="checkout__form-group">
+                            <label>Referencia</label>
+                            <input type="text" placeholder="Cerca de...">
+                        </div>
+                    </div>
+                    <div class="checkout__form-group">
+                        <label>Notas adicionales</label>
+                        <textarea placeholder="Instrucciones especiales de entrega..." rows="3"></textarea>
+                    </div>
+                    <button type="button" class="btn btn--primary btn--lg" onclick="goToStep(2)">
+                        Continuar al Pago <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Payment -->
+            <div class="checkout__form-section" id="step-2">
+                <h2>Método de Pago</h2>
+                <div class="checkout__payment-methods">
+                    <label class="checkout__payment-option">
+                        <input type="radio" name="payment" value="qr" checked>
+                        <div class="checkout__payment-card">
+                            <i class="fa-solid fa-qrcode"></i>
+                            <span>Pago QR</span>
+                            <small>Simple Bolivia / BancoSol QR</small>
+                        </div>
+                    </label>
+                    <label class="checkout__payment-option">
+                        <input type="radio" name="payment" value="card">
+                        <div class="checkout__payment-card">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span>Tarjeta</span>
+                            <small>Visa / Mastercard</small>
+                        </div>
+                    </label>
+                    <label class="checkout__payment-option">
+                        <input type="radio" name="payment" value="cash">
+                        <div class="checkout__payment-card">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <span>Efectivo</span>
+                            <small>Pago contra entrega</small>
+                        </div>
+                    </label>
+                    <label class="checkout__payment-option">
+                        <input type="radio" name="payment" value="transfer">
+                        <div class="checkout__payment-card">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>Transferencia</span>
+                            <small>Banco Nacional / BancoSol</small>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="checkout__heleta-points">
+                    <h3><i class="fa-solid fa-star"></i> Heleta Points</h3>
+                    <p>Con esta compra ganarás <strong id="checkout-points">0</strong> puntos</p>
+                    <p class="checkout__points-info">Acumula puntos y canjéalos por galletas gratis en el Heleta Club 🎉
+                    </p>
+                </div>
+
+                <div class="checkout__nav-btns">
+                    <button type="button" class="btn btn--outline" onclick="goToStep(1)">
+                        <i class="fa-solid fa-arrow-left"></i> Volver
+                    </button>
+                    <button type="button" class="btn btn--primary btn--lg" onclick="goToStep(3)">
+                        Confirmar Pedido <i class="fa-solid fa-check"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Confirmation -->
+            <div class="checkout__form-section" id="step-3">
+                <div class="checkout__confirmation">
+                    <div class="checkout__confirmation-icon">🎉</div>
+                    <h2>¡Pedido Confirmado!</h2>
+                    <p class="checkout__confirmation-order">Pedido #HEL-<span id="order-number">2026001</span></p>
+                    <p>Tu pedido ha sido recibido y está siendo preparado con mucho amor. 🍪</p>
+                    <p>Recibirás una confirmación por WhatsApp con los detalles de entrega.</p>
+
+                    <div class="checkout__confirmation-points">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Has ganado <strong id="final-points">0</strong> Heleta Points</span>
+                    </div>
+
+                    <div class="checkout__confirmation-btns">
+                        <a href="/" class="btn btn--primary btn--lg">Volver al Inicio</a>
+                        <a href="/catalogo" class="btn btn--outline btn--lg">Seguir Comprando</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="checkout__sidebar">
+                <div class="checkout__summary-card">
+                    <h3>Resumen</h3>
+                    <div id="checkout-items"></div>
+                    <div class="checkout__summary-divider"></div>
+                    <div class="checkout__summary-row">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal">Bs 0</span>
+                    </div>
+                    <div class="checkout__summary-row">
+                        <span>Envío</span>
+                        <span id="checkout-shipping">Bs 10</span>
+                    </div>
+                    <div class="checkout__summary-row checkout__summary-row--total">
+                        <span>Total</span>
+                        <span id="checkout-total">Bs 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCheckoutSummary();
+    });
+
+    function renderCheckoutSummary() {
+        const items = HelCart.getItems();
+        const grouped = {};
+        items.forEach(item => {
+            if (grouped[item.id]) grouped[item.id].qty++;
+            else grouped[item.id] = { ...item, qty: 1 };
+        });
+
+        document.getElementById('checkout-items').innerHTML = Object.values(grouped).map(item => `
+        <div class="checkout__summary-item">
+            <span>${item.name} x${item.qty}</span>
+            <span>Bs ${item.price * item.qty}</span>
+        </div>
+    `).join('');
+
+        const subtotal = HelCart.getTotal();
+        const shipping = subtotal >= 100 ? 0 : 10;
+        const points = Math.floor(subtotal / 10);
+        document.getElementById('checkout-subtotal').textContent = `Bs ${subtotal}`;
+        document.getElementById('checkout-shipping').textContent = subtotal >= 100 ? 'GRATIS' : 'Bs 10';
+        document.getElementById('checkout-total').textContent = `Bs ${subtotal + shipping}`;
+        document.getElementById('checkout-points').textContent = points;
+        document.getElementById('final-points').textContent = points;
+        document.getElementById('order-number').textContent = `2026${Math.floor(Math.random() * 9000 + 1000)}`;
+    }
+
+    function goToStep(step) {
+        document.querySelectorAll('.checkout__form-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(`step-${step}`).classList.add('active');
+        document.querySelectorAll('.checkout__step').forEach(s => {
+            const sNum = parseInt(s.dataset.step);
+            s.classList.toggle('active', sNum <= step);
+            s.classList.toggle('completed', sNum < step);
+        });
+        if (step === 3) {
+            HelCart.clear();
+            HelCart.updateBadge();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Sobre Heleta - Nuestra Historia{% endblock %}
+{% block content %}
+<section class="section container mt-2">
+    <div class="section__header">
+        <span class="section__subtitle">🧁 Nuestra Historia</span>
+        <h2 class="section__title">Desde 2020 con Amor</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div><img src="/static/img/cookie_hero.png"
+                style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);"></div>
+        <div>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--dark-light);">
+                Heleta nació en un pequeño horno de La Paz durante el 2020. Lo que empezó como un hobby para endulzar la
+                cuarentena de amigos y familia, se convirtió en la galletería artesanal líder de Bolivia.
+                <br><br>
+                Nuestra misión es simple: crear momentos de felicidad absoluta a través de la repostería honesta, usando
+                los mejores ingredientes locales y técnicas internacionales.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem;">
+                <div
+                    style="background: var(--primary-extra-light); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                    <h4 style="font-size: 2rem; color: var(--primary);">+500k</h4>
+                    <p style="font-size: 0.8rem;">Galletas Horneadas</p>
+                </div>
+                <div
+                    style="background: var(--primary-extra-light); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                    <h4 style="font-size: 2rem; color: var(--primary);">100%</h4>
+                    <p style="font-size: 0.8rem;">Boliviano</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

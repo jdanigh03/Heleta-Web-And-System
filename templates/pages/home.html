@@ -1,76 +1,182 @@
 {% extends 'base.html' %}
 
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+{% endblock %}
+
 {% block content %}
 <!-- ===== HERO SECTION ===== -->
 <section class="hero" id="home">
-    <div class="hero__container container">
-        <div class="hero__content">
-            <span class="hero__subtitle">Bienvenidos a</span>
-            <h1 class="hero__title">Heleta</h1>
-            <p class="hero__description">
-                Galletas artesanales y café de especialidad.
-                Cada bocado es una experiencia llena de sabor y amor.
-            </p>
-            <div class="hero__buttons">
-                <a href="#menu" class="btn btn--primary">Ver Menú</a>
-                <a href="#contact" class="btn btn--outline">Contáctanos</a>
+    <div class="hero__slider" id="hero-slider">
+        <!-- Slide 1 -->
+        <div class="hero__slide active" data-slide="0">
+            <div class="hero__slide-bg"
+                style="background-image: url('{{ url_for('static', filename='img/cookie_chocolate.png') }}')"></div>
+            <div class="hero__slide-content container">
+                <span class="hero__badge">⭐ Más Vendida</span>
+                <h1 class="hero__title">Chocolate Chip<br><span class="hero__title-accent">Clásica</span></h1>
+                <p class="hero__phrase">"Crujiente por fuera, amor por dentro"</p>
+                <a href="/catalogo" class="btn btn--primary btn--lg">Ordena Ahora <i
+                        class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
-        <div class="hero__image">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Heleta" class="hero__img">
+        <!-- Slide 2 -->
+        <div class="hero__slide" data-slide="1">
+            <div class="hero__slide-bg"
+                style="background-image: url('{{ url_for('static', filename='img/cookie_chai.png') }}')"></div>
+            <div class="hero__slide-content container">
+                <span class="hero__badge">🔥 Edición Especial</span>
+                <h1 class="hero__title">Chai<br><span class="hero__title-accent">Especial</span></h1>
+                <p class="hero__phrase">"Cada mordida es un abrazo de canela"</p>
+                <a href="/catalogo" class="btn btn--primary btn--lg">Ordena Ahora <i
+                        class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero__slide" data-slide="2">
+            <div class="hero__slide-bg"
+                style="background-image: url('{{ url_for('static', filename='img/cookie_hero.png') }}')"></div>
+            <div class="hero__slide-content container">
+                <span class="hero__badge">🍪 Nuevos Sabores</span>
+                <h1 class="hero__title">Galletas<br><span class="hero__title-accent">Artesanales</span></h1>
+                <p class="hero__phrase">"Hechas con los mejores ingredientes de Bolivia"</p>
+                <a href="/catalogo" class="btn btn--primary btn--lg">Ver Catálogo <i
+                        class="fa-solid fa-arrow-right"></i></a>
+            </div>
         </div>
     </div>
-
-    <!-- Decorative elements -->
-    <div class="hero__decoration">
-        <span class="hero__cookie hero__cookie--1">🍪</span>
-        <span class="hero__cookie hero__cookie--2">🍪</span>
-        <span class="hero__cookie hero__cookie--3">☕</span>
+    <!-- Slider Controls -->
+    <div class="hero__controls">
+        <button class="hero__control-btn" id="hero-prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="hero__dots" id="hero-dots">
+            <span class="hero__dot active" data-slide="0"></span>
+            <span class="hero__dot" data-slide="1"></span>
+            <span class="hero__dot" data-slide="2"></span>
+        </div>
+        <button class="hero__control-btn" id="hero-next"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 </section>
 
-<!-- ===== ABOUT SECTION ===== -->
-<section class="about section" id="about">
-    <div class="about__container container">
+<!-- ===== LIMITED EDITIONS CAROUSEL ===== -->
+<section class="editions-preview section">
+    <div class="editions-preview__container container">
         <div class="section__header">
-            <span class="section__subtitle">Conócenos</span>
-            <h2 class="section__title">Nuestra Historia</h2>
+            <span class="section__subtitle">🔥 No te las pierdas</span>
+            <h2 class="section__title">Ediciones Limitadas</h2>
         </div>
+        <div class="editions-preview__grid">
+            <div class="editions-preview__card">
+                <div class="editions-preview__img">
+                    <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Chai Especial">
+                    <span class="editions-preview__timer">⏰ 48hrs restantes</span>
+                </div>
+                <div class="editions-preview__info">
+                    <h3>Chai Especial</h3>
+                    <p>Canela, cardamomo y jengibre en cada bocado</p>
+                    <span class="editions-preview__price">Bs 18</span>
+                </div>
+                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
+            </div>
+            <div class="editions-preview__card">
+                <div class="editions-preview__img">
+                    <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack Especial">
+                    <span class="editions-preview__timer">⏰ 72hrs restantes</span>
+                </div>
+                <div class="editions-preview__info">
+                    <h3>Pack San Valentín</h3>
+                    <p>6 galletas surtidas con caja decorada</p>
+                    <span class="editions-preview__price">Bs 85</span>
+                </div>
+                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
+            </div>
+            <div class="editions-preview__card">
+                <div class="editions-preview__img">
+                    <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}" alt="Triple Chocolate">
+                    <span class="editions-preview__timer">⏰ 24hrs restantes</span>
+                </div>
+                <div class="editions-preview__info">
+                    <h3>Triple Chocolate</h3>
+                    <p>Chocolate negro, con leche y blanco fusionados</p>
+                    <span class="editions-preview__price">Bs 22</span>
+                </div>
+                <a href="/ediciones" class="btn btn--primary btn--sm">Ordena Ahora</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <div class="about__content">
-            <div class="about__image">
-                <div class="about__img-wrapper">
-                    <!-- Placeholder para imagen del local/equipo -->
-                    <div class="about__img-placeholder">
-                        <i class="fa-solid fa-cookie-bite"></i>
+<!-- ===== OFFERS & TESTIMONIALS ===== -->
+<section class="offers section">
+    <div class="offers__container container">
+        <div class="offers__grid">
+            <!-- Daily Offer -->
+            <div class="offers__deal">
+                <div class="offers__deal-badge">🎉 Oferta del Día</div>
+                <h3 class="offers__deal-title">2x1 en Chocolate Chip</h3>
+                <p class="offers__deal-desc">Solo por hoy, llévate dos de nuestras galletas más vendidas por el precio
+                    de una.</p>
+                <div class="offers__deal-price">
+                    <span class="offers__deal-old">Bs 30</span>
+                    <span class="offers__deal-new">Bs 15</span>
+                </div>
+                <a href="/catalogo" class="btn btn--primary">Aprovechar Oferta</a>
+            </div>
+            <!-- Weekly Offer -->
+            <div class="offers__deal offers__deal--accent">
+                <div class="offers__deal-badge">🍪 Oferta de la Semana</div>
+                <h3 class="offers__deal-title">Pack Familiar - 12 galletas</h3>
+                <p class="offers__deal-desc">12 galletas surtidas + 2 cafés americanos. ¡Para compartir en familia!</p>
+                <div class="offers__deal-price">
+                    <span class="offers__deal-old">Bs 150</span>
+                    <span class="offers__deal-new">Bs 99</span>
+                </div>
+                <a href="/packs" class="btn btn--outline">Ver Packs</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="testimonials section">
+    <div class="testimonials__container container">
+        <div class="section__header">
+            <span class="section__subtitle">💬 Lo que dicen</span>
+            <h2 class="section__title">Testimonios Virales</h2>
+        </div>
+        <div class="testimonials__grid">
+            <div class="testimonials__card">
+                <div class="testimonials__stars">★★★★★</div>
+                <p class="testimonials__text">"Probé la Red Velvet y creo que vi a Dios. No estoy exagerando. La mejor
+                    galleta de toda Bolivia. 🤯"</p>
+                <div class="testimonials__author">
+                    <div class="testimonials__avatar">M</div>
+                    <div>
+                        <strong>María C.</strong>
+                        <span>La Paz</span>
                     </div>
                 </div>
             </div>
-
-            <div class="about__info">
-                <p class="about__description">
-                    En <strong>Heleta</strong>, creemos que las mejores galletas son las que se hacen con
-                    amor y los ingredientes más frescos. Somos una cafetería artesanal que nació de la
-                    pasión por la repostería y el buen café.
-                </p>
-                <p class="about__description">
-                    Cada galleta que horneamos es una obra de arte, cuidadosamente preparada para
-                    ofrecerte una experiencia única. Desde nuestras clásicas chocolate chip hasta
-                    nuestras creaciones de temporada, siempre hay algo nuevo por descubrir.
-                </p>
-
-                <div class="about__stats">
-                    <div class="about__stat">
-                        <span class="about__stat-number">+50</span>
-                        <span class="about__stat-label">Variedades de Galletas</span>
+            <div class="testimonials__card">
+                <div class="testimonials__stars">★★★★★</div>
+                <p class="testimonials__text">"Pedí 6 galletas para mi cumple y se acabaron en 10 minutos. Literal, la
+                    gente peleaba por la de Matcha. 💚"</p>
+                <div class="testimonials__author">
+                    <div class="testimonials__avatar">J</div>
+                    <div>
+                        <strong>Juan P.</strong>
+                        <span>Cochabamba</span>
                     </div>
-                    <div class="about__stat">
-                        <span class="about__stat-number">100%</span>
-                        <span class="about__stat-label">Ingredientes Frescos</span>
-                    </div>
-                    <div class="about__stat">
-                        <span class="about__stat-number">♥</span>
-                        <span class="about__stat-label">Hechas con Amor</span>
+                </div>
+            </div>
+            <div class="testimonials__card">
+                <div class="testimonials__stars">★★★★★</div>
+                <p class="testimonials__text">"Mi novia me dejó, pero Heleta nunca me falla. Cada viernes pido mi combo
+                    y todo está bien en el mundo. 🍪❤️"</p>
+                <div class="testimonials__author">
+                    <div class="testimonials__avatar">C</div>
+                    <div>
+                        <strong>Carlos R.</strong>
+                        <span>El Alto</span>
                     </div>
                 </div>
             </div>
@@ -78,248 +184,22 @@
     </div>
 </section>
 
-<!-- ===== MENU SECTION ===== -->
-<section class="menu section" id="menu">
-    <div class="menu__container container">
-        <div class="section__header">
-            <span class="section__subtitle">Delicioso</span>
-            <h2 class="section__title">Nuestro Menú</h2>
-        </div>
-
-        <!-- Category Tabs -->
-        <div class="menu__tabs">
-            <button class="menu__tab active" data-category="galletas">
-                <i class="fa-solid fa-cookie-bite"></i> Galletas
-            </button>
-            <button class="menu__tab" data-category="cafes">
-                <i class="fa-solid fa-mug-hot"></i> Cafés
-            </button>
-            <button class="menu__tab" data-category="especiales">
-                <i class="fa-solid fa-star"></i> Especiales
-            </button>
-        </div>
-
-        <!-- Menu Items Grid -->
-        <div class="menu__grid" id="menu-grid">
-            <!-- Galletas -->
-            <div class="menu__card" data-category="galletas">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Chocolate Chip Clásica</h3>
-                    <p class="menu__card-description">Nuestra galleta insignia con chips de chocolate belga</p>
-                    <span class="menu__card-price">$2.50</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="galletas">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Red Velvet</h3>
-                    <p class="menu__card-description">Galleta red velvet con relleno de cream cheese</p>
-                    <span class="menu__card-price">$3.00</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="galletas">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Matcha & White Choc</h3>
-                    <p class="menu__card-description">Galleta de matcha con chips de chocolate blanco</p>
-                    <span class="menu__card-price">$3.50</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="galletas">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Avena y Pasas</h3>
-                    <p class="menu__card-description">Galleta saludable con avena, pasas y canela</p>
-                    <span class="menu__card-price">$2.00</span>
-                </div>
-            </div>
-
-            <!-- Cafés -->
-            <div class="menu__card" data-category="cafes">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-mug-hot"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Americano</h3>
-                    <p class="menu__card-description">Café de especialidad con granos seleccionados</p>
-                    <span class="menu__card-price">$2.00</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="cafes">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-mug-hot"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Latte</h3>
-                    <p class="menu__card-description">Espresso con leche vaporizada cremosa</p>
-                    <span class="menu__card-price">$3.00</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="cafes">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-mug-hot"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Cappuccino</h3>
-                    <p class="menu__card-description">Espresso con espuma de leche perfecta</p>
-                    <span class="menu__card-price">$3.00</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="cafes">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-mug-hot"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Mocha</h3>
-                    <p class="menu__card-description">Espresso con chocolate y leche cremosa</p>
-                    <span class="menu__card-price">$3.50</span>
-                </div>
-            </div>
-
-            <!-- Especiales -->
-            <div class="menu__card" data-category="especiales">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Combo Heleta</h3>
-                    <p class="menu__card-description">2 galletas a elección + café americano o latte</p>
-                    <span class="menu__card-price">$5.50</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="especiales">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Cookie Box (6 und.)</h3>
-                    <p class="menu__card-description">Caja de 6 galletas surtidas para compartir</p>
-                    <span class="menu__card-price">$12.00</span>
-                </div>
-            </div>
-
-            <div class="menu__card" data-category="especiales">
-                <div class="menu__card-img">
-                    <i class="fa-solid fa-star"></i>
-                </div>
-                <div class="menu__card-info">
-                    <h3 class="menu__card-title">Cookie Box (12 und.)</h3>
-                    <p class="menu__card-description">Caja premium de 12 galletas surtidas</p>
-                    <span class="menu__card-price">$22.00</span>
-                </div>
+<!-- ===== CTA SECTION ===== -->
+<section class="cta">
+    <div class="cta__container container">
+        <div class="cta__content">
+            <h2 class="cta__title">¿Ya eres parte del <span>Heleta Club</span>?</h2>
+            <p class="cta__description">Acumula puntos, accede a ediciones limitadas antes que nadie y recibe descuentos
+                exclusivos.</p>
+            <div class="cta__buttons">
+                <a href="/club" class="btn btn--primary btn--lg">Únete al Club</a>
+                <a href="/catalogo" class="btn btn--outline btn--lg">Ver Catálogo</a>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
 
-<!-- ===== GALLERY SECTION ===== -->
-<section class="gallery section" id="gallery">
-    <div class="gallery__container container">
-        <div class="section__header">
-            <span class="section__subtitle">Momentos</span>
-            <h2 class="section__title">Nuestra Galería</h2>
-        </div>
-
-        <div class="gallery__grid">
-            <div class="gallery__item gallery__item--large">
-                <div class="gallery__placeholder">
-                    <i class="fa-solid fa-cookie-bite"></i>
-                    <span>Galletas Artesanales</span>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="gallery__placeholder">
-                    <i class="fa-solid fa-mug-hot"></i>
-                    <span>Café de Especialidad</span>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="gallery__placeholder">
-                    <i class="fa-solid fa-store"></i>
-                    <span>Nuestro Local</span>
-                </div>
-            </div>
-            <div class="gallery__item">
-                <div class="gallery__placeholder">
-                    <i class="fa-solid fa-box-open"></i>
-                    <span>Empaque Especial</span>
-                </div>
-            </div>
-            <div class="gallery__item gallery__item--large">
-                <div class="gallery__placeholder">
-                    <i class="fa-solid fa-heart"></i>
-                    <span>Hechas con Amor</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== CONTACT SECTION ===== -->
-<section class="contact section" id="contact">
-    <div class="contact__container container">
-        <div class="section__header">
-            <span class="section__subtitle">Encuéntranos</span>
-            <h2 class="section__title">Contacto</h2>
-        </div>
-
-        <div class="contact__content">
-            <div class="contact__info">
-                <div class="contact__card">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <h3>Ubicación</h3>
-                    <p>Calle Principal #123, Ciudad</p>
-                </div>
-
-                <div class="contact__card">
-                    <i class="fa-solid fa-phone"></i>
-                    <h3>Teléfono</h3>
-                    <p>+591 12345678</p>
-                </div>
-
-                <div class="contact__card">
-                    <i class="fa-solid fa-clock"></i>
-                    <h3>Horarios</h3>
-                    <p>Lun - Vie: 8:00 - 20:00</p>
-                    <p>Sáb: 9:00 - 18:00</p>
-                    <p>Dom: 10:00 - 16:00</p>
-                </div>
-
-                <div class="contact__card">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <h3>WhatsApp</h3>
-                    <p>
-                        <a href="https://wa.me/59112345678" target="_blank" rel="noopener noreferrer">
-                            Escríbenos por WhatsApp
-                        </a>
-                    </p>
-                </div>
-            </div>
-
-            <div class="contact__map">
-                <div class="contact__map-placeholder">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                    <p>Mapa de ubicación</p>
-                    <!-- Replace with actual Google Maps embed -->
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+{% block page_js %}
+<script src="{{ url_for('static', filename='js/hero.js') }}"></script>
 {% endblock %}

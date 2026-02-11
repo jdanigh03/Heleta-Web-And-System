@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Sucursales - Heleta{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+    #map {
+        height: 500px;
+        border-radius: var(--radius-lg);
+        margin-top: 2rem;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .sucursal-card {
+        background: var(--white);
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .sucursal-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<section class="section container mt-2">
+    <div class="section__header">
+        <span class="section__subtitle">📍 Encuéntranos</span>
+        <h2 class="section__title">Nuestras Sucursales</h2>
+    </div>
+    <div id="map"></div>
+    <div
+        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
+        <div class="sucursal-card">
+            <h3>La Paz - Central</h3>
+            <p>Calle Sagárnaga #123</p>
+            <p><small>Lun - Dom: 08:00 - 20:00</small></p>
+        </div>
+        <div class="sucursal-card">
+            <h3>Cochabamba</h3>
+            <p>Av. América Esq. Potosí</p>
+            <p><small>Lun - Sáb: 09:00 - 21:00</small></p>
+        </div>
+        <div class="sucursal-card">
+            <h3>Santa Cruz - El Cristo</h3>
+            <p>2do Anillo y Monseñor Rivero</p>
+            <p><small>Lun - Vie: 08:00 - 22:00</small></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block page_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const map = L.map('map').setView([-16.5002, -68.1232], 13); // La Paz
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        L.marker([-16.5002, -68.1232]).addTo(map).bindPopup('<b>Heleta La Paz</b><br>Central Boutique').openPopup();
+    });
+</script>
+{% endblock %}

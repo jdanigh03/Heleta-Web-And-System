@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Producto - Heleta{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/producto.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="producto">
+    <div class="producto__container container">
+        <nav class="producto__breadcrumb">
+            <a href="/">Inicio</a> / <a href="/catalogo">Galletas</a> / <span
+                id="product-name-breadcrumb">Producto</span>
+        </nav>
+
+        <div class="producto__content" id="product-detail">
+            <div class="producto__gallery">
+                <div class="producto__main-img">
+                    <img id="product-image" src="{{ url_for('static', filename='img/cookie_chocolate.png') }}"
+                        alt="Producto">
+                </div>
+            </div>
+
+            <div class="producto__info">
+                <span class="producto__category" id="product-category">Chocolate</span>
+                <h1 class="producto__name" id="product-name">Chocolate Chip Clásica</h1>
+                <div class="producto__rating">
+                    <span class="producto__stars">★★★★★</span>
+                    <span class="producto__reviews">(127 reseñas)</span>
+                </div>
+                <p class="producto__price" id="product-price">Bs 15</p>
+                <p class="producto__desc" id="product-desc">Nuestra galleta insignia con chips de chocolate belga
+                    importado. Crujiente por fuera, suave y chewy por dentro. Horneada diariamente con ingredientes
+                    frescos.</p>
+
+                <div class="producto__details">
+                    <h3>Información Nutricional</h3>
+                    <div class="producto__nutrition">
+                        <div class="producto__nutrition-item">
+                            <span class="producto__nutrition-value">280</span>
+                            <span class="producto__nutrition-label">Calorías</span>
+                        </div>
+                        <div class="producto__nutrition-item">
+                            <span class="producto__nutrition-value">35g</span>
+                            <span class="producto__nutrition-label">Carbos</span>
+                        </div>
+                        <div class="producto__nutrition-item">
+                            <span class="producto__nutrition-value">14g</span>
+                            <span class="producto__nutrition-label">Grasa</span>
+                        </div>
+                        <div class="producto__nutrition-item">
+                            <span class="producto__nutrition-value">4g</span>
+                            <span class="producto__nutrition-label">Proteína</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="producto__ingredients">
+                    <h3>Ingredientes</h3>
+                    <p>Harina de trigo, mantequilla premium, azúcar morena, huevos de campo, chips de chocolate belga
+                        (62% cacao), extracto de vainilla, sal marina, bicarbonato de sodio.</p>
+                </div>
+
+                <div class="producto__customize">
+                    <h3>Personalización</h3>
+                    <div class="producto__option">
+                        <label class="producto__option-label">
+                            <input type="checkbox" id="gift-box"> 🎁 Caja regalo (+Bs 10)
+                        </label>
+                    </div>
+                    <div class="producto__option">
+                        <label class="producto__option-label">
+                            <input type="checkbox" id="message-card"> 💌 Tarjeta con mensaje (+Bs 5)
+                        </label>
+                    </div>
+                    <div class="producto__message-input" id="message-input-wrap" style="display:none;">
+                        <textarea id="gift-message" placeholder="Escribe tu mensaje aquí..." maxlength="150"></textarea>
+                    </div>
+                </div>
+
+                <div class="producto__quantity">
+                    <h3>Cantidad</h3>
+                    <div class="producto__qty-control">
+                        <button class="producto__qty-btn" id="qty-minus">-</button>
+                        <span class="producto__qty-value" id="qty-value">1</span>
+                        <button class="producto__qty-btn" id="qty-plus">+</button>
+                    </div>
+                </div>
+
+                <button class="btn btn--primary btn--lg producto__add-btn" id="add-to-cart-btn">
+                    <i class="fa-solid fa-cart-plus"></i> Añadir al Carrito
+                </button>
+            </div>
+        </div>
+
+        <!-- Suggestions -->
+        <div class="producto__suggestions">
+            <h2 class="section__title">Combínala con...</h2>
+            <div class="producto__suggestions-grid">
+                <div class="producto__suggestion-card">
+                    <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Chai Especial">
+                    <h4>Chai Especial</h4>
+                    <p>Bs 18</p>
+                    <button class="btn btn--outline btn--sm"
+                        onclick="HelCart.add({id:3, name:'Chai Especial', price:18, img:'/static/img/cookie_chai.png'})">Añadir</button>
+                </div>
+                <div class="producto__suggestion-card">
+                    <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack Surtido">
+                    <h4>Pack Docena Surtida</h4>
+                    <p>Bs 130</p>
+                    <button class="btn btn--outline btn--sm"
+                        onclick="HelCart.add({id:8, name:'Pack Docena Surtida', price:130, img:'/static/img/cookie_pack.png'})">Añadir</button>
+                </div>
+                <div class="producto__suggestion-card">
+                    <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}" alt="Nutella Bomb">
+                    <h4>Nutella Bomb</h4>
+                    <p>Bs 22</p>
+                    <button class="btn btn--outline btn--sm"
+                        onclick="HelCart.add({id:6, name:'Nutella Bomb', price:22, img:'/static/img/cookie_chocolate.png'})">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Quantity controls
+        const qtyValue = document.getElementById('qty-value');
+        let qty = 1;
+        document.getElementById('qty-minus').addEventListener('click', () => {
+            if (qty > 1) { qty--; qtyValue.textContent = qty; }
+        });
+        document.getElementById('qty-plus').addEventListener('click', () => {
+            if (qty < 24) { qty++; qtyValue.textContent = qty; }
+        });
+
+        // Message card toggle
+        document.getElementById('message-card').addEventListener('change', (e) => {
+            document.getElementById('message-input-wrap').style.display = e.target.checked ? 'block' : 'none';
+        });
+
+        // Add to cart
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+            const name = document.getElementById('product-name').textContent;
+            const price = parseInt(document.getElementById('product-price').textContent.replace('Bs ', ''));
+            const img = document.getElementById('product-image').src;
+            for (let i = 0; i < qty; i++) {
+                HelCart.add({ id: {{ product_id }}, name, price, img
+        });
+    }
+        // Show confirmation
+        const btn = document.getElementById('add-to-cart-btn');
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Agregado!';
+    btn.style.background = '#27ae60';
+    setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Añadir al Carrito';
+        btn.style.background = '';
+    }, 2000);
+    });
+});
+</script>
+{% endblock %}

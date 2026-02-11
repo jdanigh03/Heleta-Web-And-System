@@ -1,0 +1,84 @@
+/* ===== MAIN THEME UPDATES ===== */
+:root {
+    --primary: #D42B5A;
+    --primary-dark: #B01E48;
+    --primary-light: #F5A3B8;
+    --primary-extra-light: #FDE8EE;
+    --cream: #FFF5F7;
+    --white: #FFFFFF;
+    --dark: #2D1F2D;
+    --dark-light: #4A3A4A;
+    --gray: #8A7A8A;
+    --gray-light: #C4B8C4;
+    --gold: #D4A844;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.section--fade {
+    animation: fadeIn 1s ease forwards;
+}
+
+/* Transitions for dynamic content */
+#products-grid,
+#cart-items {
+    transition: all 0.4s ease;
+}
+
+/* Global Button Fixes */
+.btn {
+    white-space: nowrap;
+}
+
+.btn--sm {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.8rem;
+}
+
+/* Utilitie */
+.text-primary {
+    color: var(--primary);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+/* Responsive adjustments */
+body {
+    overflow-x: hidden;
+}
+
+main {
+    min-height: calc(100vh - 400px);
+    /* Ensure footer push */
+}

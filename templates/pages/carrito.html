@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Carrito - Heleta{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/carrito.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="carrito">
+    <div class="carrito__container container">
+        <h1 class="carrito__title"><i class="fa-solid fa-bag-shopping"></i> Tu Carrito</h1>
+
+        <!-- Empty State -->
+        <div class="carrito__empty" id="cart-empty" style="display:none;">
+            <div class="carrito__empty-icon">🍪</div>
+            <h2>Tu carrito está vacío</h2>
+            <p>¡Agrega unas galletas para empezar!</p>
+            <a href="/catalogo" class="btn btn--primary btn--lg">Ver Catálogo</a>
+        </div>
+
+        <!-- Cart Content -->
+        <div class="carrito__content" id="cart-content">
+            <div class="carrito__items" id="cart-items">
+                <!-- Items injected by JS -->
+            </div>
+
+            <div class="carrito__summary">
+                <div class="carrito__summary-card">
+                    <h3>Resumen del Pedido</h3>
+                    <div class="carrito__summary-row">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">Bs 0</span>
+                    </div>
+                    <div class="carrito__summary-row">
+                        <span>Envío</span>
+                        <span id="cart-shipping">Bs 10</span>
+                    </div>
+                    <div class="carrito__summary-row carrito__summary-row--total">
+                        <span>Total</span>
+                        <span id="cart-total">Bs 0</span>
+                    </div>
+
+                    <div class="carrito__heleta-points">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Ganarás <strong id="cart-points">0</strong> Heleta Points</span>
+                    </div>
+
+                    <a href="/checkout" class="btn btn--primary btn--lg carrito__checkout-btn" id="checkout-btn">
+                        Proceder al Pago <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="/catalogo" class="carrito__continue">
+                        <i class="fa-solid fa-arrow-left"></i> Seguir comprando
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCart();
+    });
+
+    function renderCart() {
+        const items = HelCart.getItems();
+        const cartItems = document.getElementById('cart-items');
+        const cartEmpty = document.getElementById('cart-empty');
+        const cartContent = document.getElementById('cart-content');
+
+        if (items.length === 0) {
+            cartEmpty.style.display = 'flex';
+            cartContent.style.display = 'none';
+            return;
+        }
+
+        cartEmpty.style.display = 'none';
+        cartContent.style.display = 'grid';
+
+        // Group by id
+        const grouped = {};
+        items.forEach(item => {
+            if (grouped[item.id]) {
+                grouped[item.id].qty++;
+            } else {
+                grouped[item.id] = { ...item, qty: 1 };
+            }
+        });
+
+        cartItems.innerHTML = Object.values(grouped).map(item => `
+        <div class="carrito__item">
+            <img src="${item.img}" alt="${item.name}" class="carrito__item-img">
+            <div class="carrito__item-info">
+                <h3>${item.name}</h3>
+                <p class="carrito__item-price">Bs ${item.price}</p>
+            </div>
+            <div class="carrito__item-qty">
+                <button class="carrito__qty-btn" onclick="updateQty(${item.id}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button class="carrito__qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+            </div>
+            <span class="carrito__item-total">Bs ${item.price * item.qty}</span>
+            <button class="carrito__remove-btn" onclick="removeItem(${item.id})">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+
+        const subtotal = HelCart.getTotal();
+        const shipping = subtotal >= 100 ? 0 : 10;
+        document.getElementById('cart-subtotal').textContent = `Bs ${subtotal}`;
+        document.getElementById('cart-shipping').textContent = subtotal >= 100 ? 'GRATIS' : 'Bs 10';
+        document.getElementById('cart-total').textContent = `Bs ${subtotal + shipping}`;
+        document.getElementById('cart-points').textContent = Math.floor(subtotal / 10);
+    }
+
+    function updateQty(id, delta) {
+        const items = HelCart.getItems();
+        if (delta > 0) {
+            const item = items.find(i => i.id === id);
+            if (item) HelCart.add({ ...item });
+        } else {
+            HelCart.removeOne(id);
+        }
+        renderCart();
+    }
+
+    function removeItem(id) {
+        HelCart.removeAll(id);
+        renderCart();
+    }
+</script>
+{% endblock %}
