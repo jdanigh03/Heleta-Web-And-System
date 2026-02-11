@@ -127,3 +127,9 @@
         font-size: 1.5rem;
     }
 }
+/* Actions & Cart Badge */
+.nav__actions { display: flex; align-items: center; gap: 1.25rem; z-index: 10; }
+.nav__cart, .nav__account { font-size: 1.15rem; color: var(--dark); position: relative; transition: color 0.3s; }
+.nav__cart:hover, .nav__account:hover { color: var(--primary); }
+.nav__cart-badge { position: absolute; top: -7px; right: -9px; background: var(--primary); color: var(--white); font-size: 0.65rem; width: 17px; height: 17px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; border: 1.5px solid var(--white); }
+@media screen and (max-width: 768px) { .nav__actions { gap: 0.75rem; } }

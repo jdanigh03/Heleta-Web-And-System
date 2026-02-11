@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo - Heleta | Galletas Artesanales{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/catalogo.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="catalogo">
+    <div class="catalogo__container container">
+        <!-- Page Header -->
+        <div class="catalogo__header">
+            <h1 class="catalogo__title">Nuestras Galletas</h1>
+            <p class="catalogo__subtitle">Cada galleta es una obra de arte hecha con los mejores ingredientes de Bolivia
+                🍪</p>
+        </div>
+
+        <!-- Search & View Toggle -->
+        <div class="catalogo__toolbar">
+            <div class="catalogo__search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="search-input" placeholder="Buscar galletas..." class="catalogo__search-input">
+            </div>
+            <div class="catalogo__view-toggle">
+                <button class="catalogo__view-btn active" data-view="grid" title="Vista cuadrícula">
+                    <i class="fa-solid fa-grid-2"></i>
+                </button>
+                <button class="catalogo__view-btn" data-view="list" title="Vista lista">
+                    <i class="fa-solid fa-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="catalogo__filters" id="filters">
+            <div class="catalogo__filter-group">
+                <label class="catalogo__filter-label">Sabor</label>
+                <div class="catalogo__filter-options">
+                    <button class="catalogo__filter-btn active" data-filter="sabor" data-value="todos">Todos</button>
+                    <button class="catalogo__filter-btn" data-filter="sabor" data-value="chocolate">🍫
+                        Chocolate</button>
+                    <button class="catalogo__filter-btn" data-filter="sabor" data-value="frutas">🍓 Frutas</button>
+                    <button class="catalogo__filter-btn" data-filter="sabor" data-value="rellenas">🥜 Rellenas</button>
+                    <button class="catalogo__filter-btn" data-filter="sabor" data-value="especias">🌶️ Especias</button>
+                </div>
+            </div>
+            <div class="catalogo__filter-group">
+                <label class="catalogo__filter-label">Tamaño</label>
+                <div class="catalogo__filter-options">
+                    <button class="catalogo__filter-btn active" data-filter="tamano" data-value="todos">Todos</button>
+                    <button class="catalogo__filter-btn" data-filter="tamano"
+                        data-value="individual">Individual</button>
+                    <button class="catalogo__filter-btn" data-filter="tamano" data-value="media-docena">Media
+                        Docena</button>
+                    <button class="catalogo__filter-btn" data-filter="tamano" data-value="docena">Docena</button>
+                </div>
+            </div>
+            <div class="catalogo__filter-group">
+                <label class="catalogo__filter-label">Ordenar</label>
+                <select class="catalogo__filter-select" id="sort-select">
+                    <option value="popular">Más Vendidas</option>
+                    <option value="price-low">Precio: Menor a Mayor</option>
+                    <option value="price-high">Precio: Mayor a Menor</option>
+                    <option value="new">Más Nuevas</option>
+                </select>
+            </div>
+            <div class="catalogo__filter-tags">
+                <button class="catalogo__tag" data-filter="especial" data-value="sin-gluten">Sin Gluten</button>
+                <button class="catalogo__tag" data-filter="especial" data-value="vegana">Vegana</button>
+                <button class="catalogo__tag" data-filter="especial" data-value="mas-vendida">⭐ Más Vendida</button>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="catalogo__grid" id="products-grid">
+            <!-- Product 1 -->
+            <div class="catalogo__card" data-id="1" data-sabor="chocolate" data-tamano="individual" data-price="15"
+                data-especial="mas-vendida" data-name="Chocolate Chip Clásica">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}"
+                        alt="Chocolate Chip Clásica">
+                    <span class="catalogo__card-badge">⭐ Más Vendida</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Chocolate Chip Clásica</h3>
+                    <p class="catalogo__card-desc">Nuestra galleta insignia con chips de chocolate belga. Crujiente por
+                        fuera, suave por dentro.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Chocolate Negro</span>
+                        <span class="catalogo__flavor">Vainilla</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 15</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:1, name:'Chocolate Chip Clásica', price:15, img:'/static/img/cookie_chocolate.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="catalogo__card" data-id="2" data-sabor="frutas" data-tamano="individual" data-price="18"
+                data-especial="" data-name="Red Velvet">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_hero.png') }}" alt="Red Velvet">
+                    <span class="catalogo__card-badge catalogo__card-badge--new">Nuevo</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Red Velvet</h3>
+                    <p class="catalogo__card-desc">Galleta red velvet con relleno cremoso de cream cheese. Irresistible.
+                    </p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Red Velvet</span>
+                        <span class="catalogo__flavor">Cream Cheese</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 18</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:2, name:'Red Velvet', price:18, img:'/static/img/cookie_hero.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="catalogo__card" data-id="3" data-sabor="especias" data-tamano="individual" data-price="18"
+                data-especial="" data-name="Chai Especial">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Chai Especial">
+                    <span class="catalogo__card-badge catalogo__card-badge--limited">Edición Limitada</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Chai Especial</h3>
+                    <p class="catalogo__card-desc">Canela, cardamomo y jengibre en una galleta aromática y cálida.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Canela</span>
+                        <span class="catalogo__flavor">Cardamomo</span>
+                        <span class="catalogo__flavor">Jengibre</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 18</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:3, name:'Chai Especial', price:18, img:'/static/img/cookie_chai.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="catalogo__card" data-id="4" data-sabor="chocolate" data-tamano="individual" data-price="20"
+                data-especial="" data-name="Matcha & White Choc">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_hero.png') }}" alt="Matcha & White Choc">
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Matcha & White Choc</h3>
+                    <p class="catalogo__card-desc">Matcha japonés con chips de chocolate blanco premium. Equilibrio
+                        perfecto.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Matcha</span>
+                        <span class="catalogo__flavor">Choc Blanco</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 20</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:4, name:'Matcha & White Choc', price:20, img:'/static/img/cookie_hero.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="catalogo__card" data-id="5" data-sabor="frutas" data-tamano="individual" data-price="12"
+                data-especial="sin-gluten" data-name="Avena y Pasas">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_chai.png') }}" alt="Avena y Pasas">
+                    <span class="catalogo__card-badge catalogo__card-badge--gluten">Sin Gluten</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Avena y Pasas</h3>
+                    <p class="catalogo__card-desc">Saludable y deliciosa. Avena, pasas y canela sin gluten.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Avena</span>
+                        <span class="catalogo__flavor">Pasas</span>
+                        <span class="catalogo__flavor">Canela</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 12</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:5, name:'Avena y Pasas', price:12, img:'/static/img/cookie_chai.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="catalogo__card" data-id="6" data-sabor="rellenas" data-tamano="individual" data-price="22"
+                data-especial="" data-name="Nutella Bomb">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_chocolate.png') }}" alt="Nutella Bomb">
+                    <span class="catalogo__card-badge catalogo__card-badge--hot">🔥 Hot</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Nutella Bomb</h3>
+                    <p class="catalogo__card-desc">Rellena de Nutella cremosa. Explosión de sabor en cada mordida.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">Nutella</span>
+                        <span class="catalogo__flavor">Avellana</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 22</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:6, name:'Nutella Bomb', price:22, img:'/static/img/cookie_chocolate.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="catalogo__card" data-id="7" data-sabor="chocolate" data-tamano="media-docena" data-price="75"
+                data-especial="" data-name="Pack Media Docena Chocolate">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack Media Docena">
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Pack Media Docena Chocolate</h3>
+                    <p class="catalogo__card-desc">6 galletas de chocolate surtidas en caja premium.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">6 unidades</span>
+                        <span class="catalogo__flavor">Surtidas</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 75</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:7, name:'Pack Media Docena Chocolate', price:75, img:'/static/img/cookie_pack.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="catalogo__card" data-id="8" data-sabor="rellenas" data-tamano="docena" data-price="130"
+                data-especial="mas-vendida" data-name="Pack Docena Surtida">
+                <div class="catalogo__card-img">
+                    <img src="{{ url_for('static', filename='img/cookie_pack.png') }}" alt="Pack Docena Surtida">
+                    <span class="catalogo__card-badge">⭐ Más Vendida</span>
+                </div>
+                <div class="catalogo__card-info">
+                    <h3 class="catalogo__card-name">Pack Docena Surtida</h3>
+                    <p class="catalogo__card-desc">12 galletas de todos los sabores en caja regalo premium con lazo.</p>
+                    <div class="catalogo__card-flavors">
+                        <span class="catalogo__flavor">12 unidades</span>
+                        <span class="catalogo__flavor">Caja Regalo</span>
+                    </div>
+                    <div class="catalogo__card-bottom">
+                        <span class="catalogo__card-price">Bs 130</span>
+                        <button class="catalogo__add-btn"
+                            onclick="HelCart.add({id:8, name:'Pack Docena Surtida', price:130, img:'/static/img/cookie_pack.png'})">
+                            <i class="fa-solid fa-cart-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{{ url_for('static', filename='js/catalogo.js') }}"></script>
+{% endblock %}

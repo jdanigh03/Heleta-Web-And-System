@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Packs & Regalos - Heleta{% endblock %}
+{% block content %}
+<section class="section container mt-2">
+    <div class="section__header">
+        <span class="section__subtitle">🎁 Para compartir</span>
+        <h2 class="section__title">Packs & Regalos</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="catalogo__card">
+            <div class="catalogo__card-img"><img src="/static/img/cookie_pack.png"></div>
+            <div class="catalogo__card-info">
+                <h3>Caja Corporativa</h3>
+                <p>24 galletas surtidas con logo personalizado para empresas.</p>
+                <div class="catalogo__card-bottom">
+                    <span class="catalogo__card-price">Bs 250</span>
+                    <button class="btn btn--primary"
+                        onclick="HelCart.add({id:101, name:'Caja Corporativa', price:250, img:'/static/img/cookie_pack.png'})">Añadir</button>
+                </div>
+            </div>
+        </div>
+        <div class="catalogo__card">
+            <div class="catalogo__card-img"><img src="/static/img/cookie_pack.png"></div>
+            <div class="catalogo__card-info">
+                <h3>Pack Cumpleañero</h3>
+                <p>12 galletas + Vela + Mensaje personalizado.</p>
+                <div class="catalogo__card-bottom">
+                    <span class="catalogo__card-price">Bs 140</span>
+                    <button class="btn btn--primary"
+                        onclick="HelCart.add({id:102, name:'Pack Cumpleañero', price:140, img:'/static/img/cookie_pack.png'})">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

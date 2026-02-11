@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Soporte & FAQ - Heleta{% endblock %}
+{% block content %}
+<section class="section container mt-2">
+    <div class="section__header">
+        <span class="section__subtitle">💬 ¿En qué te ayudamos?</span>
+        <h2 class="section__title">Soporte</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
+        <div>
+            <h3>Preguntas Frecuentes</h3>
+            <div style="margin-top: 2rem;">
+                <details style="padding: 1rem; border-bottom: 1px solid var(--primary-extra-light);">
+                    <summary style="font-weight: 600; cursor: pointer;">¿Hacen envíos a todo Bolivia?</summary>
+                    <p style="padding-top: 1rem; color: var(--gray);">Sí, llegamos a las ciudades principales vía
+                        encomienda nacional y delivery local.</p>
+                </details>
+                <details style="padding: 1rem; border-bottom: 1px solid var(--primary-extra-light);">
+                    <summary style="font-weight: 600; cursor: pointer;">¿Tienen opciones sin gluten?</summary>
+                    <p style="padding-top: 1rem; color: var(--gray);">¡Sí! Tenemos nuestra famosa galleta de Avena y
+                        Pasas certificada sin gluten.</p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <h3>Chatea con HeletaBot 🍪</h3>
+            <div id="chat-box"
+                style="height: 300px; border: 1px solid var(--primary-extra-light); border-radius: var(--radius-md); padding: 1.5rem; overflow-y: auto; background: var(--white);">
+                <div
+                    style="background: var(--primary-extra-light); padding: 0.75rem; border-radius: 0 1rem 1rem 1rem; margin-bottom: 1rem; width: fit-content;">
+                    ¡Hola! Soy HeletaBot, el chatbot más dulce. ¿Quieres saber sobre tu pedido o ver el catálogo?</div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                <input type="text" placeholder="Escribe tu duda..."
+                    style="flex: 1; padding: 0.75rem; border-radius: var(--radius-xl); border: 1px solid var(--primary-extra-light);">
+                <button class="btn btn--primary" style="padding: 0.75rem 1.5rem;"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
