@@ -1,0 +1,182 @@
+/* ===== SMART CATALOG: STOCK + FLY-TO-CART ===== */
+
+/* --- Stock Bar --- */
+.catalogo__stock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.catalogo__stock-bar {
+    flex: 1;
+    height: 4px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.catalogo__stock-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), background 0.6s ease;
+}
+
+.catalogo__stock-fill[data-level="high"] {
+    background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.catalogo__stock-fill[data-level="medium"] {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.catalogo__stock-fill[data-level="low"] {
+    background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.catalogo__stock-text {
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.catalogo__stock-text[data-level="high"] {
+    color: #10b981;
+}
+
+.catalogo__stock-text[data-level="medium"] {
+    color: #f59e0b;
+}
+
+.catalogo__stock-text[data-level="low"] {
+    color: #ef4444;
+}
+
+/* --- Low stock pulse effect --- */
+.catalogo__stock-fill[data-level="low"] {
+    animation: stockPulse 1.5s infinite;
+}
+
+@keyframes stockPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* --- Sold Out Overlay --- */
+.catalogo__card.sold-out {
+    pointer-events: none;
+    position: relative;
+}
+
+.catalogo__card.sold-out .catalogo__card-img::after {
+    content: '🔒 Agotado';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    border-radius: inherit;
+    letter-spacing: 0.5px;
+}
+
+.catalogo__card.sold-out .catalogo__card-info {
+    opacity: 0.5;
+}
+
+.catalogo__card.sold-out .catalogo__add-btn {
+    background: #ccc !important;
+    cursor: not-allowed;
+}
+
+/* --- Fly to Cart Animation --- */
+.fly-item {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    transition: none;
+}
+
+.fly-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.fly-item.flying {
+    transition: all 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: scale(0.3) rotate(360deg);
+    opacity: 0;
+}
+
+/* --- Purchase Burst Particles --- */
+.purchase-burst {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.purchase-particle {
+    position: absolute;
+    font-size: 1.2rem;
+    animation: particleBurst 0.8s ease-out forwards;
+}
+
+@keyframes particleBurst {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* --- Cart Badge Bounce --- */
+@keyframes cartBounce {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.5);
+    }
+
+    60% {
+        transform: scale(0.8);
+    }
+}
+
+.nav__cart-badge.bounce {
+    animation: cartBounce 0.5s ease;
+}
+
+/* --- Add Button Success State --- */
+.catalogo__add-btn.added {
+    background: #10b981 !important;
+    transform: scale(0.95);
+}
+
+.catalogo__add-btn {
+    transition: all 0.3s ease;
+}
