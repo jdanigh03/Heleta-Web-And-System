@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_updates.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/social-float.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/smart-catalog.css') }}">
     {% block page_css %}{% endblock %}
 
     <!-- Favicon -->
@@ -41,6 +43,8 @@
 
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/stock-system.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/social-float.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block page_js %}{% endblock %}
 </body>

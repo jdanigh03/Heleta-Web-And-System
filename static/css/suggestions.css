@@ -1,0 +1,213 @@
+/* ===== SMART SUGGESTIONS ===== */
+
+/* --- Suggestions Section --- */
+.smart-suggestions {
+    padding: 4rem 0 2rem;
+    background: linear-gradient(135deg, rgba(243, 232, 255, 0.5) 0%, rgba(219, 234, 254, 0.5) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.smart-suggestions::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.smart-suggestions__header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.smart-suggestions__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    animation: badgeShine 3s infinite;
+}
+
+@keyframes badgeShine {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 rgba(139, 92, 246, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+}
+
+.smart-suggestions__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.smart-suggestions__subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-top: 0.4rem;
+}
+
+/* --- Suggestion Cards --- */
+.smart-suggestions__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.smart-suggestions__card {
+    background: #fff;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: suggestSlideIn 0.6s ease forwards;
+}
+
+.smart-suggestions__card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.smart-suggestions__card:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.smart-suggestions__card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.smart-suggestions__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes suggestSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.smart-suggestions__card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.smart-suggestions__card-body {
+    padding: 1.2rem;
+}
+
+.smart-suggestions__card-match {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.smart-suggestions__card-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1e293b;
+    margin: 0.3rem 0;
+}
+
+.smart-suggestions__card-price {
+    color: var(--primary, #2563eb);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.smart-suggestions__card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 2rem;
+    background: var(--primary, #2563eb);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.smart-suggestions__card-btn:hover {
+    background: var(--primary-dark, #1d4fd8);
+    transform: scale(1.02);
+}
+
+/* --- Welcome Back Banner --- */
+.smart-suggestions__banner {
+    text-align: center;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    margin: 0 1.5rem 1.5rem;
+    max-width: 870px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.smart-suggestions__banner strong {
+    text-transform: capitalize;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .smart-suggestions {
+        padding: 3rem 0 1.5rem;
+    }
+
+    .smart-suggestions__title {
+        font-size: 1.4rem;
+    }
+
+    .smart-suggestions__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .smart-suggestions__card-img {
+        height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .smart-suggestions__grid {
+        grid-template-columns: 1fr;
+    }
+}
