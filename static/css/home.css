@@ -1,14 +1,26 @@
 /* ===== HOME PAGE REFINED STYLES ===== */
 
 .editions-preview {
-    background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+    background: linear-gradient(135deg, rgba(253, 230, 238, 0.5) 0%, rgba(219, 234, 254, 0.5) 100%);
     padding: 4rem 0;
-    /* Reduced from 8rem */
+    position: relative;
+    overflow: hidden;
+}
+
+.editions-preview::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -15%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212, 43, 90, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .editions-preview__container {
     max-width: 1000px;
-    /* Reduced from 1200px */
 }
 
 .section__desc {
@@ -22,112 +34,124 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    /* Reduced from 2rem */
 }
 
 .editions-preview__card {
-    background: var(--white);
-    border-radius: var(--radius-lg);
+    background: #fff;
+    border-radius: 1.2rem;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid var(--primary-extra-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: editionSlideIn 0.6s ease forwards;
 }
 
-/* Featured styles removed */
+.editions-preview__card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.editions-preview__card:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.editions-preview__card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes editionSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .editions-preview__card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
 }
 
 .editions-preview__img {
-    flex: 1;
     position: relative;
     overflow: hidden;
-    min-height: 180px;
-    /* Reduced from 250px */
+    height: 200px;
 }
 
 .editions-preview__card .editions-preview__img {
-    flex: 1;
+    height: 200px;
 }
 
 .editions-preview__img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.5s ease;
 }
 
 .editions-preview__card:hover .editions-preview__img img {
-    transform: scale(1.05);
+    transform: scale(1.08);
 }
 
 .editions-preview__badge {
     position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-    background: var(--primary);
-    color: var(--white);
-    padding: 0.5rem 1.25rem;
-    border-radius: var(--radius-xl);
-    font-size: 0.8rem;
-    font-weight: 700;
-    box-shadow: 0 4px 10px rgba(212, 43, 90, 0.3);
+    top: 1rem;
+    left: 1rem;
+    background: linear-gradient(135deg, var(--primary), #e84393);
+    color: #fff;
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: 0 3px 12px rgba(212, 43, 90, 0.3);
+    z-index: 2;
 }
 
 .editions-preview__content {
-    flex: 1;
-    padding: 1.5rem;
-    /* Reduced from 2.5rem */
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .editions-preview__card .editions-preview__content {
-    padding: 1.5rem;
-    /* Reduced from 2.5rem */
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
 }
 
 .editions-preview__timer-bar {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
-    background: var(--primary-extra-light);
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    background: rgba(212, 43, 90, 0.08);
     color: var(--primary);
     width: fit-content;
-    border-radius: var(--radius-md);
-    font-size: 0.75rem;
-    /* Reduced from 0.9rem */
+    border-radius: 2rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    margin-bottom: 1rem;
-    /* Reduced from 2rem */
+    margin-bottom: 0.75rem;
 }
 
 .editions-preview__name {
-    font-size: 1.25rem;
-    /* Reduced from 1.75rem */
-    margin-bottom: 0.5rem;
-    color: var(--dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: #1e293b;
 }
 
 .editions-preview__card .editions-preview__name {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .editions-preview__text {
-    color: var(--gray);
+    color: #64748b;
     line-height: 1.5;
-    margin-bottom: 1.5rem;
-    /* Reduced from 2.5rem */
-    font-size: 0.875rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
 }
 
 .editions-preview__footer {
@@ -135,22 +159,37 @@
     align-items: center;
     justify-content: space-between;
     margin-top: auto;
+    gap: 0.75rem;
 }
 
 .editions-preview__price {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    /* Reduced from 2rem */
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--primary);
+}
+
+.editions-preview__footer .btn {
+    border-radius: 2rem;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.editions-preview__footer .btn:hover {
+    transform: scale(1.04);
 }
 
 /* Response */
 @media screen and (max-width: 992px) {
     .editions-preview__grid {
         grid-template-columns: 1fr;
+        max-width: 380px;
+        margin: 0 auto;
     }
 }
+
 
 /* Offers & Other styles from before included for completeness */
 /* (omitted unchanged parts for brevity if already in home.css, but I'll write the full file here) */
