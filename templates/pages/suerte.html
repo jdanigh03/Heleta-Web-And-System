@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% block title %}Galleta de la Suerte | Heleta{% endblock %}
+
+{% block page_css %}
+<style>
+  /* ── Page shell ─────────────────────────── */
+  .suerte-page {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    background: radial-gradient(ellipse at top, #fff8f0 0%, #fff 70%);
+  }
+
+  .suerte-page .section__subtitle {
+    margin-bottom: 0.5rem;
+  }
+
+  .suerte-page .section__title {
+    margin-bottom: 0.5rem;
+  }
+
+  .suerte-intro {
+    color: var(--dark-light, #6b6b6b);
+    font-size: 1rem;
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ── Cookie container ───────────────────── */
+  .cookie-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 2.5rem;
+    cursor: pointer;
+  }
+
+  /* whole cookie */
+  .cookie-whole {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .cookie-svg {
+    width: 160px;
+    height: 160px;
+    filter: drop-shadow(0 8px 24px rgba(193, 114, 46, 0.30));
+    transition: transform 0.25s ease;
+  }
+
+  .cookie-wrap:hover .cookie-svg {
+    transform: scale(1.06) rotate(-3deg);
+  }
+
+  /* shimmer ring while loading */
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+
+    50% {
+      transform: scale(1.12);
+      opacity: 0.2;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+  }
+
+  .cookie-wrap.loading .cookie-svg {
+    animation: pulse-ring 0.9s ease-in-out infinite;
+  }
+
+  /* ── Break animation ────────────────────── */
+  .half-left,
+  .half-right {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .half-left svg {
+    transform-origin: right center;
+  }
+
+  .half-right svg {
+    transform-origin: left center;
+  }
+
+  @keyframes fly-left {
+    0% {
+      transform: translateX(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(-80px) rotate(-30deg) scale(0.85);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes fly-right {
+    0% {
+      transform: translateX(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateX(80px) rotate(30deg) scale(0.85);
+      opacity: 0.7;
+    }
+  }
+
+  .cookie-wrap.broken .cookie-whole {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cookie-wrap.broken .half-left {
+    opacity: 1;
+    animation: fly-left 0.55s ease-out forwards;
+  }
+
+  .cookie-wrap.broken .half-right {
+    opacity: 1;
+    animation: fly-right 0.55s ease-out forwards;
+  }
+
+  /* ── CTA Button ─────────────────────────── */
+  .btn-romper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: var(--primary, #c1722e);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.85rem 2.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(193, 114, 46, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-romper:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(193, 114, 46, 0.45);
+  }
+
+  .btn-romper:active {
+    transform: translateY(0);
+  }
+
+  .btn-romper:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-romper i {
+    font-size: 1.1rem;
+  }
+
+  /* ── Message card ───────────────────────── */
+  .message-card {
+    display: none;
+    max-width: 560px;
+    background: linear-gradient(135deg, #fffbf5 0%, #fff8ee 100%);
+    border: 1.5px solid rgba(193, 114, 46, 0.18);
+    border-radius: 20px;
+    padding: 2.5rem 2.8rem;
+    box-shadow: 0 12px 40px rgba(193, 114, 46, 0.12);
+    animation: card-enter 0.5s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .message-card::before {
+    content: '✨';
+    position: absolute;
+    font-size: 5rem;
+    opacity: 0.06;
+    top: -10px;
+    right: 10px;
+  }
+
+  @keyframes card-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) scale(0.97);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .message-card.visible {
+    display: block;
+  }
+
+  .message-icon {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .message-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-style: italic;
+    color: var(--dark, #2c1a0e);
+    line-height: 1.65;
+    margin: 0 0 1.5rem;
+  }
+
+  .message-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(193, 114, 46, 0.10);
+    color: var(--primary, #c1722e);
+    border-radius: 30px;
+    padding: 0.3rem 0.9rem;
+  }
+
+  /* ── Try again button ───────────────────── */
+  .btn-again {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    background: transparent;
+    border: 2px solid var(--primary, #c1722e);
+    color: var(--primary, #c1722e);
+    border-radius: 50px;
+    padding: 0.65rem 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-again:hover {
+    background: var(--primary, #c1722e);
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* ── Confetti particles ─────────────────── */
+  .confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+  }
+
+  .particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-20px) rotate(0deg);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="suerte-page">
+  <div class="section__header">
+    <span class="section__subtitle">🥠 Magia Heleta</span>
+    <h1 class="section__title">Galleta de la Suerte</h1>
+  </div>
+  <p class="suerte-intro">
+    ¿Te atreves a romperla y descubrir lo que el universo tiene para ti?
+  </p>
+
+  <!-- Cookie visual -->
+  <div class="cookie-wrap" id="cookieWrap">
+    <!-- Whole cookie -->
+    <div class="cookie-whole">
+      <svg class="cookie-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="80" cy="80" rx="72" ry="68" fill="#D4943A" />
+        <ellipse cx="80" cy="80" rx="68" ry="64" fill="#E8A84A" />
+        <ellipse cx="80" cy="80" rx="64" ry="60" fill="#F0B85A" />
+        <!-- texture dots -->
+        <circle cx="55" cy="58" r="4.5" fill="#C4842A" opacity=".55" />
+        <circle cx="100" cy="65" r="5.5" fill="#C4842A" opacity=".55" />
+        <circle cx="70" cy="94" r="4" fill="#C4842A" opacity=".55" />
+        <circle cx="108" cy="95" r="5" fill="#C4842A" opacity=".55" />
+        <circle cx="48" cy="88" r="3.5" fill="#C4842A" opacity=".45" />
+        <circle cx="88" cy="48" r="3" fill="#C4842A" opacity=".5" />
+        <!-- center fold line -->
+        <path d="M40 80 Q80 64 120 80" stroke="#C4842A" stroke-width="2.5" stroke-linecap="round" opacity=".6" />
+        <!-- gloss -->
+        <ellipse cx="65" cy="58" rx="16" ry="8" fill="white" opacity=".12" transform="rotate(-20 65 58)" />
+      </svg>
+    </div>
+    <!-- Left half (broken) -->
+    <div class="half-left">
+      <svg viewBox="0 0 160 160" width="160" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <clipPath id="cl">
+          <rect x="0" y="0" width="80" height="160" />
+        </clipPath>
+        <g clip-path="url(#cl)">
+          <ellipse cx="80" cy="80" rx="72" ry="68" fill="#D4943A" />
+          <ellipse cx="80" cy="80" rx="68" ry="64" fill="#E8A84A" />
+          <ellipse cx="80" cy="80" rx="64" ry="60" fill="#F0B85A" />
+          <circle cx="55" cy="58" r="4.5" fill="#C4842A" opacity=".55" />
+          <circle cx="70" cy="94" r="4" fill="#C4842A" opacity=".55" />
+          <circle cx="48" cy="88" r="3.5" fill="#C4842A" opacity=".45" />
+          <path d="M40 80 Q80 64 120 80" stroke="#C4842A" stroke-width="2.5" stroke-linecap="round" opacity=".6" />
+          <!-- jagged break edge -->
+          <polyline points="80,30 74,55 82,72 76,95 80,130" stroke="#B87030" stroke-width="3" fill="none" />
+        </g>
+      </svg>
+    </div>
+    <!-- Right half (broken) -->
+    <div class="half-right">
+      <svg viewBox="0 0 160 160" width="160" height="160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <clipPath id="cr">
+          <rect x="80" y="0" width="80" height="160" />
+        </clipPath>
+        <g clip-path="url(#cr)">
+          <ellipse cx="80" cy="80" rx="72" ry="68" fill="#D4943A" />
+          <ellipse cx="80" cy="80" rx="68" ry="64" fill="#E8A84A" />
+          <ellipse cx="80" cy="80" rx="64" ry="60" fill="#F0B85A" />
+          <circle cx="100" cy="65" r="5.5" fill="#C4842A" opacity=".55" />
+          <circle cx="108" cy="95" r="5" fill="#C4842A" opacity=".55" />
+          <circle cx="88" cy="48" r="3" fill="#C4842A" opacity=".5" />
+          <path d="M40 80 Q80 64 120 80" stroke="#C4842A" stroke-width="2.5" stroke-linecap="round" opacity=".6" />
+          <polyline points="80,30 86,55 78,72 84,95 80,130" stroke="#B87030" stroke-width="3" fill="none" />
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- CTA Button -->
+  <button class="btn-romper" id="btnRomper">
+    <i class="fa-solid fa-cookie-bite"></i>
+    ¡Rompe tu galleta!
+  </button>
+
+  <!-- Message card (hidden until reveal) -->
+  <div class="message-card" id="messageCard">
+    <span class="message-icon">🥠</span>
+    <p class="message-text" id="messageText">…</p>
+    <span class="message-badge" id="messageBadge">
+      <i class="fa-solid fa-stars" style="font-size:.7rem"></i>
+      Generado por IA
+    </span>
+  </div>
+
+  <!-- Try again (shown after first reveal) -->
+  <button class="btn-again" id="btnAgain" style="display:none">
+    <i class="fa-solid fa-rotate-right"></i>
+    Otra galleta
+  </button>
+</section>
+
+<!-- Confetti layer -->
+<div class="confetti-container" id="confettiContainer"></div>
+{% endblock %}
+
+{% block page_js %}
+<script>
+  (function () {
+    const wrap = document.getElementById('cookieWrap');
+    const btnRomper = document.getElementById('btnRomper');
+    const btnAgain = document.getElementById('btnAgain');
+    const card = document.getElementById('messageCard');
+    const msgText = document.getElementById('messageText');
+    const msgBadge = document.getElementById('messageBadge');
+    const confetti = document.getElementById('confettiContainer');
+
+    const COLORS = ['#E8A84A', '#F0B85A', '#c1722e', '#f5d08a', '#e07030', '#fff3dc', '#ff9f43'];
+
+    function spawnConfetti(n = 55) {
+      confetti.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const el = document.createElement('div');
+        el.className = 'particle';
+        el.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        background: ${COLORS[Math.floor(Math.random() * COLORS.length)]};
+        width: ${4 + Math.random() * 8}px;
+        height: ${4 + Math.random() * 8}px;
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        animation-duration: ${1.2 + Math.random() * 1.8}s;
+        animation-delay: ${Math.random() * 0.5}s;
+      `;
+        confetti.appendChild(el);
+      }
+      setTimeout(() => { confetti.innerHTML = ''; }, 3500);
+    }
+
+    function resetCookie() {
+      wrap.classList.remove('broken', 'loading');
+      card.classList.remove('visible');
+      btnRomper.disabled = false;
+      btnRomper.innerHTML = '<i class="fa-solid fa-cookie-bite"></i> ¡Rompe tu galleta!';
+      btnAgain.style.display = 'none';
+    }
+
+    async function fetchFrase() {
+      const res = await fetch('/api/suerte', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+      const data = await res.json();
+      return data;
+    }
+
+    btnRomper.addEventListener('click', async () => {
+      if (btnRomper.disabled) return;
+      btnRomper.disabled = true;
+      btnRomper.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generando…';
+      wrap.classList.add('loading');
+
+      let data = { frase: '...', source: 'fallback' };
+      try {
+        data = await fetchFrase();
+      } catch (_) { /* use defaults */ }
+
+      // Crack the cookie
+      wrap.classList.remove('loading');
+      wrap.classList.add('broken');
+
+      // Small delay then reveal message
+      setTimeout(() => {
+        msgText.textContent = '"' + data.frase + '"';
+        if (data.source === 'ai') {
+          msgBadge.innerHTML = '<i class="fa-solid fa-sparkles" style="font-size:.7rem"></i> Generado por IA ✨';
+        } else {
+          msgBadge.innerHTML = '<i class="fa-solid fa-cookie" style="font-size:.7rem"></i> Sabiduría Heleta';
+        }
+        card.classList.add('visible');
+        spawnConfetti();
+        btnAgain.style.display = 'inline-flex';
+      }, 600);
+    });
+
+    btnAgain.addEventListener('click', resetCookie);
+  })();
+</script>
+{% endblock %}
