@@ -1,0 +1,19 @@
+{
+  "name": "gemini-chatbot-web",
+  "version": "1.0.0",
+  "description": "Chatbot web con Gemini 2.5 Pro",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["gemini", "chatbot", "ai"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "@google/generative-ai": "^0.3.0",
+    "dotenv": "^16.0.3"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "gemini-chatbot-nodejs",
+  "version": "1.0.0",
+  "description": "Chatbot de consola con Gemini 2.5 Pro en Node.js",
+  "main": "nodejs_gemini_chatbot.js",
+  "type": "module",
+  "scripts": {
+    "start": "node nodejs_gemini_chatbot.js"
+  },
+  "keywords": ["gemini", "chatbot", "ai", "nodejs"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.3.0"
+  }
+}
