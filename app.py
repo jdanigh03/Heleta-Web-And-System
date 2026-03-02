@@ -6,6 +6,14 @@ from config import Config
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# --- Gemini 2.5 Pro Chatbot ---
+GEMINI_MODEL = "gemini-2.5-pro"
+HELA_SYSTEM = """Eres Hela, la asistente virtual de Heleta (tienda de galletas).
+Respondes siempre en español, de forma amable y breve.
+Ayudas con: sugerencias de galletas, precios, pedidos, sucursales y dudas generales.
+Si el usuario tiene un problema con su pedido, ofrécele ayuda y di que puedes tomar sus datos para crear un ticket de soporte.
+No inventes precios ni productos; si no sabes algo, recomienda contactar por la web o visitar una sucursal."""
+
 # --- Routes ---
 
 @app.route('/')
@@ -71,6 +79,80 @@ def soporte():
 @app.route('/suerte')
 def suerte():
     return render_template('pages/suerte.html')
+
+
+# --- Chatbot API (Gemini 2.5 Pro) ---
+
+def _gemini_client():
+    from google import genai
+    api_key = os.environ.get('GEMINI_API_KEY')
+    if not api_key:
+        raise ValueError('GEMINI_API_KEY no está configurada. Añádela en .env o variables de entorno.')
+    return genai.Client(api_key=api_key)
+
+
+def _build_contents(history, current_message):
+    """Construye la lista de contents para Gemini con historial + mensaje actual."""
+    from google.genai.types import Content, Part
+    contents = []
+    for item in history:
+        role = 'user' if item.get('role') == 'user' else 'model'
+        text = item.get('text', '')
+        if text:
+            contents.append(Content(role=role, parts=[Part(text=text)]))
+    contents.append(Content(role='user', parts=[Part(text=current_message)]))
+    return contents
+
+
+@app.route('/api/chat', methods=['POST'])
+def api_chat():
+    data = request.get_json() or {}
+
+    # Envío de ticket de soporte (sin Gemini)
+    if data.get('ticket'):
+        name = data.get('name', '')
+        email = data.get('email', '')
+        order_id = data.get('order_id', '')
+        detail = data.get('detail', '')
+        # TODO: guardar en BD o enviar email
+        reply = (
+            f"Gracias {name}. Recibimos tu ticket de soporte. "
+            "Te contactaremos a {email} a la brevedad.".format(name=name, email=email)
+        )
+        if order_id:
+            reply += f" Pedido referido: {order_id}."
+        return jsonify({'reply': reply})
+
+    message = (data.get('message') or '').strip()
+    if not message:
+        return jsonify({'reply': 'Escribe algo y te respondo. 😊'}), 200
+
+    history = data.get('history') or []
+    show_ticket_form = any(
+        p in message.lower()
+        for p in ('problema con mi pedido', 'problema con pedido', 'reclamo', 'tengo un problema')
+    )
+
+    try:
+        client = _gemini_client()
+        contents = _build_contents(history, message)
+        from google.genai.types import GenerateContentConfig
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=contents,
+            config=GenerateContentConfig(system_instruction=[HELA_SYSTEM])
+        )
+        reply = (response.text or '').strip() or 'No pude generar una respuesta.'
+    except ValueError as e:
+        return jsonify({'reply': '⚠️ El chatbot no está configurado. Contacta al administrador.'}), 200
+    except Exception as e:
+        print(f"[CHATBOT ERROR] {type(e).__name__}: {e}")
+        return jsonify({'reply': '⚠️ Error temporal. Intenta de nuevo en un momento.'}), 200
+
+    out = {'reply': reply}
+    if show_ticket_form:
+        out['form'] = 'ticket'
+    return jsonify(out)
 
 
 # --- Galleta de la Suerte API ---
